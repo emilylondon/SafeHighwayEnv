@@ -21,7 +21,7 @@ class IntersectionEnv(AbstractEnv):
             {
                 "observation": {
                     "type": "Kinematics",
-                    "vehicles_count": 15,
+                    "vehicles_count": 2,
                     "features": ["presence", "x", "y", "vx", "vy", "cos_h", "sin_h"],
                     "features_range": {
                         "x": [-100, 100],
@@ -32,6 +32,7 @@ class IntersectionEnv(AbstractEnv):
                     "absolute": True,
                     "flatten": False,
                     "observe_intentions": False,
+                    "normalize": False, # added to not normalize the obs, turned it off 
                 },
                 "action": {
                     "type": "DiscreteMetaAction",

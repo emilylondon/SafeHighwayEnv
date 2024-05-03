@@ -3,7 +3,6 @@
 # Environment
 import gymnasium as gym
 import highway_env
-from plot_test import safety_wrapper_plot_BRT
 
 # Agent
 from rl_agents.agents.common.factory import agent_factory
@@ -27,16 +26,13 @@ agent_config = {
     "budget": 50,
     "gamma": 0.7,
 }
-
-step = 0
 agent = agent_factory(env, agent_config)
 
 # Test BRTCalculator  
 from highway_env.envs.common.safety import BRTCalculator
 
-conservative_BRT = BRTCalculator(step, env, obs, conservative = True)
+conservative_BRT = BRTCalculator(env, conservative = True)
 print(f"Done with conservative BRT")
-safety_wrapper_plot_BRT(conservative_BRT)
 
 # Run episode
 #for step in trange(env.unwrapped.config["duration"], desc="Running..."):
