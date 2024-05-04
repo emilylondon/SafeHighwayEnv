@@ -256,7 +256,29 @@ class BicycleVehicle(Vehicle):
         self.theta = [self.FRICTION_FRONT, self.FRICTION_REAR]
         A = A0 + np.tensordot(self.theta, phi, axes=[0, 0])
         return A, B
+    
+    def opt_ctl(self, spat_deriv) -> np.ndarray:
+        
+        opt_a = self.MAX_ACCELERATION 
+        opt_steer = self.MAX_STEERING_ANGLE
 
+        if (spat_deriv[2] < 0):
+            opt_a = -opt_a
+        if (spat_deriv[3] < 0):
+            opt_steer = -opt_steer
+        
+        return np.array([opt_a, opt_steer])
+
+    def opt_conservative_dstb(self, spat_deriv) -> np.ndarray:
+        opt_a = -self.MAX_ACCELERATION 
+        opt_steer = -self.MAX_STEERING_ANGLE
+
+        if (spat_deriv[2] > 0):
+            opt_a = -opt_a
+        if (spat_deriv[3] > 0):
+            opt_steer = -opt_steer
+        
+        return np.array([opt_a, opt_steer])
 
 def simulate(dt: float = 0.1) -> None:
     import control
